@@ -56,12 +56,13 @@ mv bin proof-bin;
 mkdir -p $HOME/tools-bin/opt/Opensoft/proof-tools/bin;
 mv proof-bin/tools $HOME/tools-bin/opt/Opensoft/proof-tools/bin;
 for f in $HOME/tools-bin/opt/Opensoft/proof-tools/bin/*; do
-    mv $HOME/tools-bin/opt/Opensoft/proof-tools/bin/$f $HOME/tools-bin/opt/Opensoft/proof-tools/bin/${f}-bin;
-    cat << EOT > "$HOME/tools-bin/opt/Opensoft/proof-tools/bin/$f"
+    f_name=`basename $f`
+    mv $f ${f}-bin;
+    cat << EOT > "$f"
 #!/bin/bash
 export PROOF_PATH="/opt/Opensoft/proof-tools"
 export LD_LIBRARY_PATH="/opt/Opensoft/proof-tools/lib"
-exec "/opt/Opensoft/proof-tools/bin/${f}-bin" \$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9
+exec "/opt/Opensoft/proof-tools/bin/${f_name}-bin" \$1 \$2 \$3 \$4 \$5 \$6 \$7 \$8 \$9
 EOT
 done
 cat << EOT > "$HOME/tools-src/Manifest"
