@@ -101,6 +101,7 @@ docker exec -t builder bash -c "/opt/Opensoft/proof/dev-tools/deploy/debian/buil
 travis_time_finish && travis_fold end "pack.deb";
 echo " ";
 
+cd $HOME/tools-src;
 DEB_FILENAME=`find -maxdepth 1 -name "$TARGET_NAME-*.deb" -exec basename "{}" \; -quit`
 if [ -z  "$DEB_FILENAME" ]; then
     echo -e "\033[1;31mCan't find created deb package, halting\033[0m";
@@ -110,7 +111,7 @@ fi
 travis_time_start;
 echo -e "\033[1;33mUploading to AWS S3...\033[0m";
 if [ -n "$RELEASE_BUILD" ]; then
-    $HOME/proof-bin/dev-tools/travis/s3_upload.sh "$DEB_FILENAME" __releases/$TARGET_NAME "$DEB_FILENAME";
+    $HOME/proof-bin/dev-tools/travis/s3_upload.sh "$DEB_FILENAME" __releases/proof $TARGET_NAME-$APP_VERSION.deb;
 else
     $HOME/proof-bin/dev-tools/travis/s3_upload.sh "$DEB_FILENAME" $TRAVIS_BRANCH $TARGET_NAME-$APP_VERSION-$TRAVIS_BRANCH.deb;
 fi
