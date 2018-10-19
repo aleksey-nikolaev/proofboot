@@ -44,7 +44,7 @@ echo " ";
 
 travis_time_start;
 echo -e "\033[1;33mPreparing sources...\033[0m";
-mkdir $HOME/tools-src && find ./ -t d -name tools | xargs cp -t $HOME/tools-src/ -R;
+mkdir $HOME/tools-src && find ./ -type d -name tools | xargs cp -t $HOME/tools-src/ -R;
 travis_time_finish;
 
 travis_time_start;
