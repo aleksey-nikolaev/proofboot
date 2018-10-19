@@ -53,7 +53,7 @@ cd $HOME;
 cp full_build/bin.tar.gz bin.tar.gz;
 tar -xzf bin.tar.gz;
 mv bin proof-bin;
-mkdir -p $HOME/tools-bin/opt/Opensoft/proof-tools/bin;
+mkdir -p $HOME/tools-bin/opt/Opensoft/proof-tools;
 mv proof-bin/tools $HOME/tools-bin/opt/Opensoft/proof-tools/bin;
 for f in $HOME/tools-bin/opt/Opensoft/proof-tools/bin/*; do
     f_name=`basename $f`
@@ -81,7 +81,8 @@ travis_fold start "prepare.docker" && travis_time_start;
 echo -e "\033[1;33mDownloading and starting Docker container...\033[0m";
 docker pull opensoftdev/proof-builder-base:latest;
 docker run -id --name builder -w="/sandbox" -v $HOME/tools-src:/sandbox/target_src -v $HOME/tools-bin:/sandbox/build -v $HOME/proof-bin:/opt/Opensoft/proof \
-    -e "BUILD_ROOT=/sandbox/build" -e "PACKAGE_ROOT=/sandbox/build" -e "SKIP_BUILD_FOR_DEB_PACKAGE=true" -e "TARGET_NAME=$TARGET_NAME" \
+    -e "BUILD_ROOT=/sandbox/build" -e "PACKAGE_ROOT=/sandbox/build" -e "TARGET_NAME=$TARGET_NAME" \
+    -e "SKIP_BUILD_FOR_DEB_PACKAGE=true" -e "SKIP_DEB_SCRIPTS=true" \
     -e "PROOF_PATH=/opt/Opensoft/proof" -e "QMAKEFEATURES=/opt/Opensoft/proof/features" \
     opensoftdev/proof-builder-base tail -f /dev/null;
 docker ps;
