@@ -72,6 +72,9 @@ DESCRIPTION="Proof Tools.
 "
 EXTRA_RECOMMENDS=socat
 EOT
+cat << EOT > "$HOME/tools-src/proof-tools.pro"
+VERSION = $APP_VERSION
+EOT
 travis_time_finish;
 
 travis_fold start "prepare.docker" && travis_time_start;
